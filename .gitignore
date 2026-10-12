@@ -64,3 +64,7 @@ replay_pid*
 
 config.yml
 hosts.yml
+
+logs/
+.idea/
+.junie/
