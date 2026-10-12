@@ -21,12 +21,6 @@ public class MessageManager {
         return regelwerk.initialize();
     }
 
-    public Container getSendSuccess(String preset, TextChannel textChannel) {
-        return Container.of(
-                TextDisplay.of("# ✅ Preset gesendet"),
-                TextDisplay.of("Du hast das Preset `" + preset + "` erfolgreich in " + textChannel.getAsMention() + " gesendet!")
-        );
-    }
 
     public Regelwerk getRegelwerk() {
         return regelwerk;

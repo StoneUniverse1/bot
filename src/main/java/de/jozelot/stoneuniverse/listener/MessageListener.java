@@ -28,7 +28,7 @@ public class MessageListener extends ListenerAdapter {
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         Member sender = event.getMember();
         Message message = event.getMessage();
-        String messageString = message.getContentStripped();
+        String messageString = message.getContentStripped().toLowerCase();
 
         String regex = ".*\\b(ip|adresse|adrese|addrese|address|ip-?adresse|ip-?adrese|ip-?address)\\b.*";
 
@@ -41,7 +41,7 @@ public class MessageListener extends ListenerAdapter {
             logger.info(event.getMember().getEffectiveName() + " has been send the java message");
             event.getMessage().reply("Java? Da bin ich ganz in meinem Element! ☕");
 
-        } else if (messageString.toLowerCase().contains("media") && messageString.toLowerCase().contains("anforderung")) {
+        } else if (messageString.contains("media") && messageString.toLowerCase().contains("anforderung")) {
             logger.info(event.getMember().getEffectiveName() + " has been send the media message");
             event.getMessage().replyComponents(Messages.getMediaAnf(bot.getBootstrap().getConfig())).useComponentsV2().queue();
         }

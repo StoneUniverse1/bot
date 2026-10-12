@@ -20,6 +20,6 @@ public class BotSystem {
         System.gc();
         long after = (runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024;
 
-        logger.info("Garbage Collector triggered. RAM altered from {}MB to {}MB.", before, after);
+        //logger.info("Garbage Collector triggered. RAM altered from {}MB to {}MB.", before, after);
     }
 }

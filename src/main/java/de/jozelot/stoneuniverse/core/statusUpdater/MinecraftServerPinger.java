@@ -107,7 +107,6 @@ public class MinecraftServerPinger {
     }
 
     private String readString(DataInputStream in) throws IOException {
-        readVarInt(in);
         int length = readVarInt(in);
         byte[] bytes = new byte[length];
         in.readFully(bytes);
