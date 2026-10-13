@@ -7,12 +7,14 @@ public class Player {
     private UUID uuid;
     private String name;
     private String lpRank, lpName;
+    private int lpWeight;
 
-    public Player(UUID uuid, String name, String lpRank, String lpName) {
+    public Player(UUID uuid, String name, String lpRank, String lpName, int lpWeight) {
         this.uuid = uuid;
         this.name = name;
         this.lpRank = lpRank;
         this.lpName = lpName;
+        this.lpWeight = lpWeight;
     }
 
     public UUID getUuid() {
@@ -29,5 +31,8 @@ public class Player {
 
     public String getLpName() {
         return lpName;
+    }
+    public int getLpWeight() {
+        return lpWeight;
     }
 }

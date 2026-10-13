@@ -28,10 +28,12 @@ public class ServerStatusPacket implements Packet {
         private String name;
         private String lpRank;
         private String lpName;
+        private int lpWeight;
 
         public String getUuid() { return uuid; }
         public String getName() { return name; }
         public String getLpRank() { return lpRank; }
         public String getLpName() { return lpName; }
+        public int getLpWeight() { return lpWeight; }
     }
 }

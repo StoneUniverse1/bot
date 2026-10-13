@@ -38,7 +38,7 @@ public class OnlinePacketListener implements RedisListener {
             Map<UUID, Player> playerMap = new HashMap<>();
             for (ServerStatusPacket.PlayerDto dto : packet.getPlayers()) {
                 UUID uuid = UUID.fromString(dto.getUuid());
-                Player player = new Player(uuid, dto.getName(), dto.getLpRank(), dto.getLpName());
+                Player player = new Player(uuid, dto.getName(), dto.getLpRank(), dto.getLpName(), dto.getLpWeight());
                 playerMap.put(uuid, player);
             }
 
