@@ -27,7 +27,7 @@ public class StatusUpdater {
                 5000);
     }
 
-    public void update() {
+    public void updateOld() {
         msp.fetchStatus();
         ConfigManager.BotConf.ActivityConfig activity;
 
@@ -46,6 +46,30 @@ public class StatusUpdater {
         String finalMessage = messageRaw
                 .replace("{player_count}", String.valueOf(msp.getOnlinePlayers()))
                 .replace("{max_players}", String.valueOf(msp.getMaxPlayers()));
+
+        var shardManager = bot.getBootstrap().getBotManager().getShardManager();
+        shardManager.setActivity(Activity.of(Activity.ActivityType.valueOf(activity.getType().toUpperCase()), finalMessage));
+        shardManager.setStatus(OnlineStatus.fromKey(activity.getStatus()));
+
+        logger.debug("Status updated: " + finalMessage);
+    }
+
+    public void update() {
+        ConfigManager.BotConf.ActivityConfig activity;
+
+        var server = bot.getBootstrap().getServer();
+
+        if (server.isOnline()) {
+            activity = config.getBotConf().getStatus().getActivity(ActivityState.ONLINE);
+        } else {
+            activity = config.getBotConf().getStatus().getActivity(ActivityState.OFFLINE);
+        }
+
+        String messageRaw = activity.getFormat();
+
+        String finalMessage = messageRaw
+                .replace("{player_count}", String.valueOf(server.getPlayers().size()))
+                .replace("{max_players}", String.valueOf(server.getMaxPlayers()));
 
         var shardManager = bot.getBootstrap().getBotManager().getShardManager();
         shardManager.setActivity(Activity.of(Activity.ActivityType.valueOf(activity.getType().toUpperCase()), finalMessage));

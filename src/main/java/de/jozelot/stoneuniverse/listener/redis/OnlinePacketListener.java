@@ -30,6 +30,7 @@ public class OnlinePacketListener implements RedisListener {
             ServerStatusPacket packet = mapper.readValue(payload, ServerStatusPacket.class);
 
             var server = bot.getBootstrap().getServer();
+            server.setUpdate();
             server.setOnline(true);
             server.setTps(packet.getTps());
             server.setMspt(packet.getMspt());
@@ -43,7 +44,6 @@ public class OnlinePacketListener implements RedisListener {
             }
 
             server.setPlayers(playerMap);
-            server.setUpdate();
 
             // logger.info("Server Status empfangen: {}", mapper.writeValueAsString(packet));
             // logger.info("Exact Packet: {}", payload);
