@@ -14,6 +14,7 @@ import de.jozelot.stoneuniverse.listener.tempChannel.TempChannelSettingsListener
 import de.jozelot.stoneuniverse.mechanics.CountingSystem;
 import de.jozelot.stoneuniverse.mechanics.giveaway.GiveawayService;
 import de.jozelot.stoneuniverse.mechanics.levelSystem.LevelSystem;
+import de.jozelot.stoneuniverse.mechanics.server.MinecraftServer;
 import de.jozelot.stoneuniverse.mechanics.tempChannels.TempChannelSystem;
 import de.jozelot.stoneuniverse.messages.MessageManager;
 import de.jozelot.stoneuniverse.registry.CommandRegistry;
@@ -51,6 +52,8 @@ public class BotBootstrap implements Bootstrap {
     private MessageManager messageManager;
     private BotSystem botSystem;
 
+    private MinecraftServer server;
+
     public BotBootstrap(StoneUniverse bot) {
         this.bot = bot;
     }
@@ -75,6 +78,7 @@ public class BotBootstrap implements Bootstrap {
         giveawayService = new GiveawayService(bot, scheduler);
         messageManager = new MessageManager(bot);
         botSystem = new BotSystem(bot);
+        server = new MinecraftServer(bot);
         logger.info("Object registration finished!");
         return true;
     }
@@ -179,5 +183,8 @@ public class BotBootstrap implements Bootstrap {
     }
     public BotSystem getBotSystem() {
         return botSystem;
+    }
+    public MinecraftServer getServer() {
+        return server;
     }
 }

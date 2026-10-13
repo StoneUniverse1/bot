@@ -4,6 +4,7 @@ import de.jozelot.stoneuniverse.data.config.ConfigManager;
 import de.jozelot.stoneuniverse.data.hosts.HostsManager;
 import de.jozelot.stoneuniverse.mechanics.CountingSystem;
 import de.jozelot.stoneuniverse.mechanics.levelSystem.UserLevel;
+import de.jozelot.stoneuniverse.mechanics.server.Player;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.components.actionrow.ActionRow;
 import net.dv8tion.jda.api.components.buttons.Button;
@@ -337,6 +338,23 @@ public class Messages {
                 Separator.createDivider(Separator.Spacing.SMALL),
 
                 TextDisplay.of("**Typ:** " + formatierterTyp)
+        );
+    }
+
+    public static Container getOnlineInfo(int online, int maxPlayers, List<Player> players) {
+        StringBuilder sb = new StringBuilder();
+
+        for (Player player : players) {
+            sb.append(" • **[" + player.getLpName() + "] " + player.getName() + "** ||" + player.getUuid() + "||\n");
+        }
+        if (sb.isEmpty()) sb.append("-# _Kein Spieler online_");
+
+        return Container.of(
+                TextDisplay.of("# \uD83C\uDF10 Online (" + online + "/" + maxPlayers + ")"),
+
+                Separator.createDivider(Separator.Spacing.LARGE),
+
+                TextDisplay.of(sb.toString())
         );
     }
 }

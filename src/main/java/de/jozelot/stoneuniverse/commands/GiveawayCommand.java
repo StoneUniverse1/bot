@@ -66,7 +66,6 @@ public class GiveawayCommand implements Command {
         } else {
             event.replyComponents(Messages.getError("Unknown Subcommand: " + subcommandName)).useComponentsV2().setEphemeral(true).queue();
         }
-        logger.info(event.getMember().getEffectiveName() + " issued server command: /" + event.getFullCommandName());
     }
 
     @Override

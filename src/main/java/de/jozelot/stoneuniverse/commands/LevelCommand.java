@@ -69,7 +69,6 @@ public class LevelCommand implements Command {
 
     @Override
     public void execute(SlashCommandInteractionEvent event) {
-        logger.info(event.getMember().getEffectiveName() + " issued server command: /" + event.getFullCommandName());
         String group = event.getSubcommandGroup();
         String subcommand = event.getSubcommandName();
 

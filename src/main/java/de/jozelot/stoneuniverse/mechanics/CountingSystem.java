@@ -138,6 +138,7 @@ public class CountingSystem {
     }
 
     public void saveToDatabase() {
+        if (currentHighscore == 0) return;
         CompletableFuture.runAsync(() -> {
             try (Connection conn = bot.getBootstrap().getDatabaseLoader().getConnection()) {
                 String sql = "INSERT INTO counting (id, current_count, last_counter_id, rounds_played, highscore) " +

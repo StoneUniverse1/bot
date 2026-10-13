@@ -2,6 +2,6 @@ package de.jozelot.stoneuniverse.interfaces;
 
 public interface RedisListener {
 
-    void execute();
+    void execute(String payload);
     String getChannel();
 }

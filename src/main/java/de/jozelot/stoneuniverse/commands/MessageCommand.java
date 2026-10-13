@@ -54,7 +54,6 @@ public class MessageCommand implements Command {
     public void execute(SlashCommandInteractionEvent event) {
         String subcommand = event.getSubcommandName();
         Regelwerk regelwerk = bot.getBootstrap().getMessageManager().getRegelwerk();
-        logger.info(event.getMember().getEffectiveName() + " issued server command: /" + event.getFullCommandName());
 
         if ("send".equalsIgnoreCase(subcommand)) {
             String option = event.getOption("preset").getAsString();

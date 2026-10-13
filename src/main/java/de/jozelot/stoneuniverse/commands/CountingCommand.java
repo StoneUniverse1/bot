@@ -38,7 +38,6 @@ public class CountingCommand implements Command {
     public void execute(SlashCommandInteractionEvent event) {
         String subcommandName = event.getSubcommandName();
         if (subcommandName.equalsIgnoreCase("stats")) {
-            logger.info(event.getMember().getEffectiveName() + " issued server command: /" + event.getFullCommandName());
             event.replyComponents(Messages.getCountingStats(bot.getBootstrap().getCountingSystem())).useComponentsV2().setEphemeral(true).queue();
         }
     }

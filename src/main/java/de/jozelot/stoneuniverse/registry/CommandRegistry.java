@@ -48,6 +48,7 @@ public class CommandRegistry extends ListenerAdapter implements Registry {
         registerCommand(new GiveawayCommand(bot));
         registerCommand(new LevelCommand(bot));
         registerCommand(new MessageCommand(bot));
+        registerCommand(new OnlineCommand(bot));
         return true;
     }
 
@@ -63,6 +64,7 @@ public class CommandRegistry extends ListenerAdapter implements Registry {
                 event.replyComponents(Messages.getCommandNoPermission(neededPermission)).useComponentsV2().setEphemeral(true).queue();
                 return;
             }
+            logger.info(event.getMember().getEffectiveName() + " issued server command: /" + event.getFullCommandName());
             command.execute(event);
         }
     }
