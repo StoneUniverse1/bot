@@ -342,19 +342,38 @@ public class Messages {
     }
 
     public static Container getOnlineInfo(int online, int maxPlayers, List<Player> players) {
-        StringBuilder sb = new StringBuilder();
+        if (players.isEmpty()) {
+            return Container.of(
+                    TextDisplay.of("# \uD83C\uDF10 Server Status"),
+                    TextDisplay.of("-# Live Übersicht der aktuellen Spieler"),
 
-        for (Player player : players) {
-            sb.append(" • **[" + player.getLpName() + "] " + player.getName() + "** ||" + player.getUuid() + "||\n");
+                    Separator.createDivider(Separator.Spacing.SMALL),
+
+                    TextDisplay.of("👥 **Online:** `" + online + "/" + maxPlayers + "`"),
+
+                    Separator.createDivider(Separator.Spacing.SMALL),
+
+                    TextDisplay.of("-# _Derzeit ist kein Spieler online_")
+            );
         }
-        if (sb.isEmpty()) sb.append("-# _Kein Spieler online_");
+
+        StringBuilder sb = new StringBuilder();
+        for (Player player : players) {
+            sb.append("• **").append(player.getName()).append("** (`").append(player.getLpName()).append("`)\n");
+        }
 
         return Container.of(
-                TextDisplay.of("# \uD83C\uDF10 Online (" + online + "/" + maxPlayers + ")"),
+                TextDisplay.of("# \uD83C\uDF10 Server Status"),
+                TextDisplay.of("-# Live Übersicht der aktuellen Spieler"),
 
-                Separator.createDivider(Separator.Spacing.LARGE),
+                Separator.createDivider(Separator.Spacing.SMALL),
 
-                TextDisplay.of(sb.toString())
+                TextDisplay.of("👥 **Online:** `" + online + "/" + maxPlayers + "`"),
+
+                Separator.createDivider(Separator.Spacing.SMALL),
+
+                TextDisplay.of("### Online Spieler"),
+                TextDisplay.of(sb.toString().trim())
         );
     }
 }
