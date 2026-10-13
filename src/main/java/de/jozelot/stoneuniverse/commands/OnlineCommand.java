@@ -34,12 +34,10 @@ public class OnlineCommand implements Command {
         int playerCount = players.size();
         int maxPlayers = server.getMaxPlayers();
 
-        /*if (!server.isOnline()) {
-            event.replyComponents(Messages.getError("Server offline :(")).useComponentsV2().setEphemeral(true).queue();
-            return;
-        }*/
-
-        event.replyComponents(Messages.getOnlineInfo(playerCount, maxPlayers, players)).useComponentsV2().setEphemeral(true).queue();
+        event.replyComponents(Messages.getOnlineInfo(playerCount, maxPlayers, players, 1))
+                .useComponentsV2()
+                .setEphemeral(true)
+                .queue();
     }
 
     @Override

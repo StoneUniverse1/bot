@@ -20,10 +20,7 @@ import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.utils.FileUpload;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -341,7 +338,7 @@ public class Messages {
         );
     }
 
-    public static Container getOnlineInfo(int online, int maxPlayers, List<Player> players) {
+    public static Container getOnlineInfo(int online, int maxPlayers, List<Player> players, int page) {
         if (players.isEmpty()) {
             return Container.of(
                     TextDisplay.of("# \uD83C\uDF10 Server Status"),
@@ -357,10 +354,34 @@ public class Messages {
             );
         }
 
+        List<Player> sortedPlayers = players.stream()
+                .sorted(Comparator.comparingInt(Player::getLpWeight).reversed()
+                        .thenComparing(Player::getName, String.CASE_INSENSITIVE_ORDER))
+                .toList();
+
+        int pageSize = 10;
+        int maxPages = (int) Math.ceil((double) sortedPlayers.size() / pageSize);
+        if (maxPages == 0) maxPages = 1;
+        if (page < 1) page = 1;
+        if (page > maxPages) page = maxPages;
+
+        int startIndex = (page - 1) * pageSize;
+        int endIndex = Math.min(startIndex + pageSize, sortedPlayers.size());
+
         StringBuilder sb = new StringBuilder();
-        for (Player player : players) {
+        for (int i = startIndex; i < endIndex; i++) {
+            Player player = sortedPlayers.get(i);
             sb.append("• **").append(player.getName()).append("** (`").append(player.getLpName()).append("`)\n");
         }
+
+        Button prevBtn = Button.of(ButtonStyle.SECONDARY, "online:page:" + (page - 1), "", Emoji.fromUnicode("⬅️"))
+                .withDisabled(page <= 1);
+
+        Button pageBtn = Button.of(ButtonStyle.SECONDARY, "online:page:current", page + " / " + maxPages)
+                .asDisabled();
+
+        Button nextBtn = Button.of(ButtonStyle.SECONDARY, "online:page:" + (page + 1), "", Emoji.fromUnicode("➡️"))
+                .withDisabled(page >= maxPages);
 
         return Container.of(
                 TextDisplay.of("# \uD83C\uDF10 Server Status"),
@@ -373,7 +394,9 @@ public class Messages {
                 Separator.createDivider(Separator.Spacing.SMALL),
 
                 TextDisplay.of("### Online Spieler"),
-                TextDisplay.of(sb.toString().trim())
+                TextDisplay.of(sb.toString().trim()),
+
+                ActionRow.of(prevBtn, pageBtn, nextBtn)
         );
     }
 }
