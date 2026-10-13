@@ -6,7 +6,8 @@ import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.JedisPubSub;
+
+import java.util.concurrent.CompletableFuture;
 
 public class RedisConnection {
 
@@ -20,6 +21,7 @@ public class RedisConnection {
     }
 
     public boolean init() {
+        logger.info("Starting connection to redis host...");
         var cm = bot.getBootstrap().getConfig();
         var redisConf = cm.getRedis();
 
@@ -52,6 +54,8 @@ public class RedisConnection {
                 jedis.ping();
             }
 
+            logger.info("Connection to redis host was successful!");
+
             return true;
         } catch (Exception e) {
             logger.error("");
@@ -82,10 +86,12 @@ public class RedisConnection {
 
     public void startListeners() {
         var redisConnection = bot.getBootstrap().getRedisConnection();
-        try (var jedis = redisConnection.getResource()) {
-            jedis.psubscribe(new RedisManager(bot), "*");
-        } catch (Exception e) {
-            logger.error("Fehler im Redis-Subscription-Loop: " + e.getMessage());
-        }
+        CompletableFuture.runAsync(() -> {
+            try (var jedis = redisConnection.getResource()) {
+                jedis.psubscribe(new RedisManager(bot), "*");
+            } catch (Exception e) {
+                logger.error("Fehler im Redis-Subscription-Loop: " + e.getMessage());
+            }
+        });
     }
 }

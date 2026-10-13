@@ -63,7 +63,7 @@ public class MessageCommand implements Command {
 
             if (option.equalsIgnoreCase("regeln")) {
                 bot.getBootstrap().getMessageManager().getRegelwerk().sendRegelwerk(channel);
-                event.replyComponents(bot.getBootstrap().getMessageManager().getSendSuccess(option, channel)).useComponentsV2().setEphemeral(true).queue();
+                //event.replyComponents(bot.getBootstrap().getMessageManager().getSendSuccess(option, channel)).useComponentsV2().setEphemeral(true).queue();
                 return;
             }
             event.replyComponents(Messages.getError("Preset not found!")).useComponentsV2().setEphemeral(true).queue();
