@@ -43,6 +43,7 @@ public class OnlinePacketListener implements RedisListener {
             }
 
             server.setPlayers(playerMap);
+            server.setUpdate();
 
             // logger.info("Server Status empfangen: {}", mapper.writeValueAsString(packet));
             // logger.info("Exact Packet: {}", payload);
