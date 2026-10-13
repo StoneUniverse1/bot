@@ -8,6 +8,7 @@ import de.jozelot.stoneuniverse.data.config.ConfigManager;
 import de.jozelot.stoneuniverse.data.database.DatabaseLoader;
 import de.jozelot.stoneuniverse.data.hosts.HostsLoader;
 import de.jozelot.stoneuniverse.data.hosts.HostsManager;
+import de.jozelot.stoneuniverse.data.redis.RedisConnection;
 import de.jozelot.stoneuniverse.interfaces.Bootstrap;
 import de.jozelot.stoneuniverse.listener.tempChannel.TempChannelSettingsListener;
 import de.jozelot.stoneuniverse.mechanics.CountingSystem;
@@ -35,6 +36,7 @@ public class BotBootstrap implements Bootstrap {
     private HostsLoader hostsLoader;
     private HostsManager hostsManager;
     private DatabaseLoader databaseLoader;
+    private RedisConnection redisConnection;
     private HeartBeat heartBeat;
     private StatusUpdater statusUpdater;
 
@@ -62,6 +64,7 @@ public class BotBootstrap implements Bootstrap {
         hostsLoader = new HostsLoader(bot);
         hostsManager = new HostsManager(bot);
         databaseLoader = new DatabaseLoader(bot);
+        redisConnection = new RedisConnection(bot);
         listenerRegistry = new ListenerRegistry(bot);
         commandRegistry = new CommandRegistry(bot);
         heartBeat = new HeartBeat(bot);
@@ -84,6 +87,8 @@ public class BotBootstrap implements Bootstrap {
         if (!listenerRegistry.register()) return false;
         if (!databaseLoader.connect()) return false;
         if (!databaseLoader.createTables()) return false;
+        if (!redisConnection.init()) return false;
+        redisConnection.startListeners();
         statusUpdater.load();
         heartBeat.start();
         if (!countingSystem.initialize()) return false;
@@ -153,6 +158,9 @@ public class BotBootstrap implements Bootstrap {
     }
     public DatabaseLoader getDatabaseLoader() {
         return databaseLoader;
+    }
+    public RedisConnection getRedisConnection() {
+        return redisConnection;
     }
     public TempChannelSystem getTempChannelSystem() {
         return tempChannelSystem;
