@@ -39,7 +39,7 @@ public class MessageListener extends ListenerAdapter {
 
         } else if (messageString.equalsIgnoreCase("java")) {
             logger.info(event.getMember().getEffectiveName() + " has been send the java message");
-            event.getMessage().reply("Java? Da bin ich ganz in meinem Element! ☕");
+            event.getMessage().reply("Java? Da bin ich ganz in meinem Element! ☕").queue();
 
         } else if (messageString.contains("media") && messageString.toLowerCase().contains("anforderung")) {
             logger.info(event.getMember().getEffectiveName() + " has been send the media message");
