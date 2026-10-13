@@ -19,6 +19,7 @@ public class ConfigManager {
 
     private BotConf botConf;
     private Database database;
+    private Redis redis;
     private Minigames minigames;
     private System system;
 
@@ -28,6 +29,7 @@ public class ConfigManager {
         this.bot = bot;
         this.botConf = new BotConf();
         this.database = new Database();
+        this.redis = new Redis();
         this.minigames = new Minigames();
         this.system = new System();
     }
@@ -105,6 +107,22 @@ public class ConfigManager {
 
         public String getDatabase() {
             return database;
+        }
+    }
+
+    public class Redis {
+        private String host;
+        private int port;
+        private String password;
+
+        public String getHost() {
+            return host;
+        }
+        public int getPort() {
+            return port;
+        }
+        public String getPassword() {
+            return password;
         }
     }
 
@@ -240,6 +258,10 @@ public class ConfigManager {
         database.password = getString("database.password");
         database.database = getString("database.database");
 
+        redis.host = getString("redis.host");
+        redis.port = getInt("redis.port");
+        redis.password = getString("redis.password");
+
         minigames.counting.channelId = getLong("minigames.counting.channel-id");
 
         system.tempChannel.channelId = getLong("system.temp-channel.channel-id");
@@ -290,6 +312,9 @@ public class ConfigManager {
     }
     public Database getDatabase() {
         return database;
+    }
+    public Redis getRedis() {
+        return redis;
     }
     public Minigames getMinigames() {
         return minigames;
