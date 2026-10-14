@@ -1,7 +1,6 @@
 package de.jozelot.stoneuniverse.core;
 
 import de.jozelot.stoneuniverse.StoneUniverse;
-import de.jozelot.stoneuniverse.core.heartbeat.HeartBeat;
 import de.jozelot.stoneuniverse.core.statusUpdater.StatusUpdater;
 import de.jozelot.stoneuniverse.data.config.ConfigLoader;
 import de.jozelot.stoneuniverse.data.config.ConfigManager;
@@ -10,7 +9,6 @@ import de.jozelot.stoneuniverse.data.hosts.HostsLoader;
 import de.jozelot.stoneuniverse.data.hosts.HostsManager;
 import de.jozelot.stoneuniverse.data.redis.RedisConnection;
 import de.jozelot.stoneuniverse.interfaces.Bootstrap;
-import de.jozelot.stoneuniverse.listener.tempChannel.TempChannelSettingsListener;
 import de.jozelot.stoneuniverse.mechanics.CountingSystem;
 import de.jozelot.stoneuniverse.mechanics.giveaway.GiveawayService;
 import de.jozelot.stoneuniverse.mechanics.levelSystem.LevelSystem;

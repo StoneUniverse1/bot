@@ -1,7 +1,6 @@
-package de.jozelot.stoneuniverse.core.heartbeat;
+package de.jozelot.stoneuniverse.core;
 
 import de.jozelot.stoneuniverse.StoneUniverse;
-import de.jozelot.stoneuniverse.core.BotBootstrap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
